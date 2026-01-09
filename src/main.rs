@@ -1,3 +1,5 @@
+use leptos::prelude::*;
+
 fn main() {
-    println!("Hello, world!");
+    leptos::mount::mount_to_body(|| view!{ <h1>"Hello World!"</h1> })
 }
