@@ -6,7 +6,7 @@ fn main() {
 
 #[component]
 fn App() -> impl IntoView {
-    let pages = (vec!["Home", "About", "Shop"]).iter().map(|s| s.to_string()).collect();;
+    let pages = (vec!["Home", "About", "Shop"]).iter().map(|s| s.to_string()).collect();
     view! {
         <Header pages=pages></Header>
     }
@@ -19,8 +19,8 @@ fn Header(pages: Vec<String>) -> impl IntoView {
             <nav>
                 <ul>
                     {pages.into_iter()
-                        .map(|p| view!{ <a href="{p}"><li>{p}</li></a> })
-                        .collect::<Vec<_>>()}
+                        .map(|p| view!{ <a href={p.clone().to_lowercase()}><li>{p.clone()}</li></a> })
+                        .collect_view()}
                 </ul>
             </nav>
         </header>
