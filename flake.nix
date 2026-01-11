@@ -14,7 +14,7 @@
       perSystem = { pkgs, system, ... }:
       let 
         f = with fenix.packages.${system}; combine [
-          default.toolchain
+          complete.toolchain
           targets.wasm32-unknown-unknown.latest.rust-std
         ];
       in {
