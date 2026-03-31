@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>JOSTILIM</title>
-    <link data-trunk rel="copy-dir" href="assets"/>
+    
     <style>
         body, html {
             margin: 0;
@@ -202,7 +202,7 @@
             }
         }
     </style>
-</head>
+<link rel="modulepreload" href="/jostilim-148c80ad4c8679ec.js" crossorigin="anonymous" integrity="sha384-wgKDQ7zJtYt6T6qHtUlpvyUmC8JdkpPvV0XC9d7u2MCv0poyHH0+8ikTq7IldfXv"><link rel="preload" href="/jostilim-148c80ad4c8679ec_bg.wasm" crossorigin="anonymous" integrity="sha384-tKMH9rr+jtAnMTrTG/C+HXavZyXYgxBsgd+upc18jh0akAMVDM82HIATkbOiMT3N" as="fetch" type="application/wasm"></head>
 <body>
     <img src="assets/lim.png" class="main-image" alt="Lim">
 
@@ -260,5 +260,16 @@
             }
         });
     </script>
-</body>
+
+<script type="module">
+import init, * as bindings from '/jostilim-148c80ad4c8679ec.js';
+const wasm = await init({ module_or_path: '/jostilim-148c80ad4c8679ec_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
 </html>
