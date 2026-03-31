@@ -23,6 +23,7 @@
             f
             trunk
             leptosfmt
+            git
           ];
         };
       };
