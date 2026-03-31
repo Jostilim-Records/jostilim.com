@@ -10,7 +10,7 @@
 
   outputs = inputs@{ self, nixpkgs, flake-parts, fenix, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
       perSystem = { pkgs, system, ... }:
       let 
         f = with fenix.packages.${system}; combine [
