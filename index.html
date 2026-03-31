@@ -2,10 +2,262 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jostilim</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>JOSTILIM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overscroll-behavior: none; 
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-image {
+            max-width: 100%;
+            max-height: 100vh;
+            object-fit: contain;
+            z-index: 1;
+        }
+        
+        .bottom-left-text {
+            position: fixed;
+            bottom: calc(25px + env(safe-area-inset-bottom));
+            left: calc(25px + env(safe-area-inset-left));
+            letter-spacing: -0.09em;
+            opacity: 0.8;
+            z-index: 10;
+        }
+
+        .bottom-left-text h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .bottom-left-text p {
+            color: #2d2d2dff;
+            font-size: 32px;
+            font-weight: 800;
+            margin: 5px 0 0 0;
+            line-height: 1;
+        }
+
+        .top-right-logo {
+            position: fixed;
+            top: calc(25px + env(safe-area-inset-top));
+            right: calc(25px + env(safe-area-inset-right));
+            width: 60px;
+            height: auto;
+            opacity: 0.85;
+            filter: brightness(0) saturate(100%) invert(95%);
+            z-index: 10;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: calc(25px + env(safe-area-inset-top));
+            left: calc(25px + env(safe-area-inset-left));
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-btn span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 3px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.85;
+        }
+
+        .menu-btn:hover span {
+            opacity: 1;
+        }
+
+        .menu-btn.open span:nth-child(1) {
+            transform: translateY(8.5px) rotate(45deg);
+        }
+
+        .menu-btn.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-btn.open span:nth-child(3) {
+            transform: translateY(-8.5px) rotate(-45deg);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: #000;
+            border-radius: 0;
+            padding: 40px 50px;
+            display: flex;
+            gap: 30px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .social-link {
+            display: block;
+            transition: transform 0.2s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            opacity: 0.85;
+            filter: brightness(0) saturate(100%) invert(95%);
+            transition: opacity 0.2s ease;
+        }
+
+        .social-link:hover .social-icon {
+            opacity: 1;
+        }
+
+        @media screen and (max-width: 768px) {
+            .bottom-left-text {
+                bottom: calc(15px + env(safe-area-inset-bottom));
+                left: calc(15px + env(safe-area-inset-left));
+            }
+            
+            .top-right-logo {
+                top: calc(15px + env(safe-area-inset-top));
+                right: calc(15px + env(safe-area-inset-right));
+                width: 40px;
+            }
+            
+            .menu-btn {
+                top: calc(15px + env(safe-area-inset-top));
+                left: calc(15px + env(safe-area-inset-left));
+                width: 26px;
+                height: 18px;
+            }
+
+            .menu-btn.open span:nth-child(1) {
+                transform: translateY(7.5px) rotate(45deg);
+            }
+
+            .menu-btn.open span:nth-child(3) {
+                transform: translateY(-7.5px) rotate(-45deg);
+            }
+            
+            .modal-content {
+                padding: 30px;
+                gap: 20px;
+            }
+            
+            .social-icon {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>jostilim</h1>
+    <img src="src/assets/lim.png" class="main-image" alt="Lim">
+
+    <div class="menu-btn" id="menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <img src="src/assets/logo.png" class="top-right-logo" alt="Logo">
+    <div class="bottom-left-text">
+        <h1>etasjefest 2</h1>
+        <p>dato kommer</p>
+    </div>
+
+    <div class="modal-overlay" id="social-modal">
+        <div class="modal-content" id="modal-content">
+            <a href="https://www.linkedin.com/company/jostilim/" class="social-link" target="_blank" rel="noopener noreferrer">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" class="social-icon" alt="LinkedIn">
+            </a>
+            <a href="https://soundcloud.com/jostilimnorway" class="social-link" target="_blank" rel="noopener noreferrer">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/soundcloud.svg" class="social-icon" alt="SoundCloud">
+            </a>
+            <a href="https://discord.gg/hWDD2vfDg2" class="social-link" target="_blank" rel="noopener noreferrer">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/discord.svg" class="social-icon" alt="Discord">
+            </a>
+            <a href="https://www.instagram.com/jostilim4life/" class="social-link" target="_blank" rel="noopener noreferrer">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" class="social-icon" alt="Instagram">
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const overlay = document.getElementById('social-modal');
+        const menuBtn = document.getElementById('menu-btn');
+        const modalContent = document.getElementById('modal-content');
+
+        function toggleMenu() {
+            const isActive = overlay.classList.contains('active');
+            if (isActive) {
+                overlay.classList.remove('active');
+                menuBtn.classList.remove('open');
+            } else {
+                overlay.classList.add('active');
+                menuBtn.classList.add('open');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        overlay.addEventListener('click', (e) => {
+            if (!modalContent.contains(e.target)) {
+                overlay.classList.remove('active');
+                menuBtn.classList.remove('open');
+            }
+        });
+    </script>
 </body>
 </html>
