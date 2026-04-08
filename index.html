@@ -46,6 +46,13 @@
             line-height: 1;
         }
 
+        h2 {
+            font-size: 38px;
+            font-weight: 800;
+            margin: 5px 0 0 0;
+            line-height: 1;
+        }
+
         .bottom-left-text p {
             color: #2d2d2dff;
             font-size: 32px;
@@ -202,7 +209,7 @@
             }
         }
     </style>
-<link rel="modulepreload" href="/jostilim-148c80ad4c8679ec.js" crossorigin="anonymous" integrity="sha384-wgKDQ7zJtYt6T6qHtUlpvyUmC8JdkpPvV0XC9d7u2MCv0poyHH0+8ikTq7IldfXv"><link rel="preload" href="/jostilim-148c80ad4c8679ec_bg.wasm" crossorigin="anonymous" integrity="sha384-tKMH9rr+jtAnMTrTG/C+HXavZyXYgxBsgd+upc18jh0akAMVDM82HIATkbOiMT3N" as="fetch" type="application/wasm"></head>
+<link rel="modulepreload" href="/jostilim-58001db7481741fb.js" crossorigin="anonymous" integrity="sha384-CIAdmjoPlHaOKGSrV8nH/u6hspe9LYgYbAkAin0lzB10KLTZxN/M0ltGXAqnnDaW"><link rel="preload" href="/jostilim-58001db7481741fb_bg.wasm" crossorigin="anonymous" integrity="sha384-voftBfmayC1g1jtWTmfphIsF5eaQxMddZPsbViBtcmFK5b5ooMaWls0vfmHKDVIJ" as="fetch" type="application/wasm"></head>
 <body>
     <img src="assets/lim.png" class="main-image" alt="Lim">
 
@@ -215,7 +222,8 @@
     <img src="assets/logo.png" class="top-right-logo" alt="Logo">
     <div class="bottom-left-text">
         <h1>etasjefest 2</h1>
-        <p>dato kommer</p>
+        <h2>dato: 18/04</h2>
+        <p>sted og tidpunkt kommer....</p>
     </div>
 
     <div class="modal-overlay" id="social-modal">
@@ -262,8 +270,8 @@
     </script>
 
 <script type="module">
-import init, * as bindings from '/jostilim-148c80ad4c8679ec.js';
-const wasm = await init({ module_or_path: '/jostilim-148c80ad4c8679ec_bg.wasm' });
+import init, * as bindings from '/jostilim-58001db7481741fb.js';
+const wasm = await init({ module_or_path: '/jostilim-58001db7481741fb_bg.wasm' });
 
 
 window.wasmBindings = bindings;
