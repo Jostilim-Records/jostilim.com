@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>JOSTILIM</title>
-    <link data-trunk rel="copy-dir" href="assets"/>
+    
     <style>
         body, html {
             margin: 0;
@@ -39,26 +39,94 @@
             z-index: 10;
         }
 
-        .bottom-left-text h1 {
-            font-size: 48px;
-            font-weight: 800;
-            margin: 0;
+        .timeline {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timeline-event {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .timeline-event:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-event:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 18px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background-image: repeating-linear-gradient(
+                to bottom,
+                rgba(243, 243, 243, 0.25) 0px,
+                rgba(243, 243, 243, 0.25) 4px,
+                transparent 4px,
+                transparent 10px
+            );
+        }
+
+        .event-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(243, 243, 243, 0.5);
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .timeline-event.upcoming .event-dot {
+            background: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        .event-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .event-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(243, 243, 243, 0.3);
             line-height: 1;
         }
 
-        h2 {
-            font-size: 38px;
+        .event-name {
+            font-size: 26px;
             font-weight: 800;
-            margin: 5px 0 0 0;
+            line-height: 1;
+            color: rgba(243, 243, 243, 0.5);
+            letter-spacing: -0.03em;
+        }
+
+        .event-date {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: rgba(243, 243, 243, 0.25);
             line-height: 1;
         }
 
-        .bottom-left-text p {
-            color: #2d2d2dff;
-            font-size: 32px;
-            font-weight: 800;
-            margin: 5px 0 0 0;
-            line-height: 1;
+        .timeline-event.upcoming .event-name {
+            color: #fff;
+        }
+
+        .timeline-event.upcoming .event-date {
+            color: rgba(243, 243, 243, 0.7);
+        }
+
+        .timeline-event.upcoming .event-label {
+            color: rgba(243, 243, 243, 0.5);
         }
 
         .top-right-logo {
@@ -209,7 +277,7 @@
             }
         }
     </style>
-</head>
+<link rel="modulepreload" href="/jostilim-58001db7481741fb.js" crossorigin="anonymous" integrity="sha384-CIAdmjoPlHaOKGSrV8nH/u6hspe9LYgYbAkAin0lzB10KLTZxN/M0ltGXAqnnDaW"><link rel="preload" href="/jostilim-58001db7481741fb_bg.wasm" crossorigin="anonymous" integrity="sha384-voftBfmayC1g1jtWTmfphIsF5eaQxMddZPsbViBtcmFK5b5ooMaWls0vfmHKDVIJ" as="fetch" type="application/wasm"></head>
 <body>
     <img src="assets/lim.png" class="main-image" alt="Lim">
 
@@ -221,9 +289,24 @@
 
     <img src="assets/logo.png" class="top-right-logo" alt="Logo">
     <div class="bottom-left-text">
-        <h1>etasjefest 2</h1>
-        <h2>dato: 18/04</h2>
-        <p>sted og tidpunkt kommer....</p>
+        <div class="timeline">
+            <div class="timeline-event upcoming">
+                <div class="event-dot"></div>
+                <div class="event-info">
+                    <div class="event-label">Upcoming</div>
+                    <div class="event-name">etasjefest 2</div>
+                    <div class="event-date">18.04.2026</div>
+                </div>
+            </div>
+            <div class="timeline-event">
+                <div class="event-dot"></div>
+                <div class="event-info">
+                    <div class="event-label">Coming soon</div>
+                    <div class="event-name">etasjefest 3</div>
+                    <div class="event-date">xx.05.2026</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="modal-overlay" id="social-modal">
@@ -268,5 +351,16 @@
             }
         });
     </script>
-</body>
+
+<script type="module">
+import init, * as bindings from '/jostilim-58001db7481741fb.js';
+const wasm = await init({ module_or_path: '/jostilim-58001db7481741fb_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
 </html>
