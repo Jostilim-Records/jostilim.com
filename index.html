@@ -352,25 +352,17 @@
         });
     </script>
 
-<script type="module">
+<!-- <script type="module">
 import init, * as bindings from '/jostilim-58001db7481741fb.js';
-// const wasm = await init({ module_or_path: '/jostilim-58001db7481741fb_bg.wasm' });
-
-
+const wasm = await init({ module_or_path: '/jostilim-58001db7481741fb_bg.wasm' });
 window.wasmBindings = bindings;
-
-
 dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+</script> -->
 
-</script>
 <script type="module">
 import init, * as bindings from '/jostilim-58001db7481741fb.js';
 const wasm = await init({ module_or_path: '/jostilim-58001db7481741fb_bg.wasm' });
-
-
 window.wasmBindings = bindings;
-
-
 dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
 </script></body>
